@@ -1,0 +1,58 @@
+from typing import Optional, List, Type
+from shreqt.model import ModelBase, ViewBase, full_table_name
+
+
+class Layer:
+    def __init__(
+        self,
+        *,
+        schemas: Optional[List[str]] = None,
+        tables: Optional[List[Type[ModelBase]]] = None,
+        views: Optional[List[Type[ViewBase]]] = None,
+        models: Optional[List[ModelBase]] = None,
+    ):
+        self.tables = tables or []
+        self.schemas = schemas or []
+        self.models = models or []
+        self.views = views or []
+
+    def to_list_push(self):
+        return self.schemas + self.tables + self.views + self.models
+
+    def to_list_pop(self):
+        return self.models + self.views + self.tables + self.schemas
+
+
+class LayerBuilder:
+    def __init__(self):
+        self.tables = {}
+        self.schemas = set()
+        self.models = []
+        self.views = []
+
+    def with_table(self, table: Type[ModelBase]):
+        full_name = full_table_name(table)
+        self.tables[full_name] = table
+        self.with_schema(table.__table_args__["schema"])
+        return self
+
+    def with_schema(self, schema: str):
+        self.schemas.add(schema)
+        return self
+
+    def with_view(self, view: Type[ViewBase]):
+        self.views.append(view)
+        return self
+
+    def with_model(self, model: ModelBase):
+        self.with_table(type(model))
+        self.models.append(model)
+        return self
+
+    def build(self):
+        return Layer(
+            schemas=list(self.schemas),
+            tables=list(self.tables.values()),
+            models=self.models,
+            views=self.views,
+        )
