@@ -2,6 +2,6 @@
 set -e
 
 rm -rf dist
-poetry run pytest .
+poetry run pytest --cov=./ .
 poetry run black --check .
 poetry build
