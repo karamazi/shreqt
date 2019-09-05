@@ -67,7 +67,7 @@ Run checks and build package:
 
 Deploy package to pypi using poetry:
 ```bash
-poetry publish
+./deploy.sh
 ```
 
 

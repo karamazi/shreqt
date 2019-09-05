@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "shreqt"
-version = "0.2.2"
+version = "0.2.3"
 description = ""
 authors = ["Zibi Rzepka <zibi.rzepka@revolut.com>"]
 
