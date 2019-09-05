@@ -101,4 +101,5 @@ def layer_factory(
         if issubclass(element, ViewBase):
             return LayerQueryView(dialect)
     except TypeError:
-        raise TypeError("Unable to instantiate Layer Query. Incorrect element type") from None
+        pass
+    raise TypeError("Unable to instantiate Layer Query. Incorrect element type") from None

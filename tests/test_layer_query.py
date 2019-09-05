@@ -107,7 +107,7 @@ def test_layer_factory(element, expected_type):
     assert isinstance(query, expected_type)
 
 
-@pytest.mark.parametrize("value", [None, 1])
+@pytest.mark.parametrize("value", [None, 1, int])
 def test_layer_factory_raises_type_error_on_unknown_element(value):
     with pytest.raises(TypeError, match="Unable to instantiate Layer Query. .*"):
         layer_factory(value, None)
