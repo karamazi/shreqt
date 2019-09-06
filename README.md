@@ -30,11 +30,15 @@ To setup your virtual environment run the following command. The default locatio
 poetry install
 ```
 
-To run tests in poetry venv:
+To run tests and lint checks:
 ```bash
-poetry run pytest
+make checks
 ```
 
+To run linter on all files:
+```bash
+make lint
+```
 
 # Usage
 ### Prequisite
@@ -62,12 +66,12 @@ Setup `~/.pypirc` with credentials.
 
 Run checks and build package:
 ```bash
-./build.sh
+make build
 ```
 
 Deploy package to pypi using poetry:
 ```bash
-./deploy.sh
+make deploy
 ```
 
 
