@@ -58,7 +58,17 @@ ShreQT uses following environment variables to connect to database.
 | SHREQT_USER | sys            |
 | SHREQT_PASS | exasol         |
 
-### To be expanded
+## Example
+The `example` directory contains simple example which illustrates the example usage.
+
+- `conftest.py` includes simple User schema and code which sets up the database for test session.
+- `example.py` includes a tested function.
+- `example_test.py` include example test function.
+
+You can run the example with:
+```bash
+make run-example
+```
 
 
 # Build && Deploy
@@ -79,8 +89,9 @@ make deploy
 
 - Schema and Table should not be inferred from Model.
 - Schema should not be inferred from Table.
-- Automate deployment step
+- Automate deployment step with travis
 - ContextManger/Decorator functionality for temporary layer
-- Example usage
+- Option to automatically clean layers up once dbonion is destroyed.
+
 
 
