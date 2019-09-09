@@ -26,18 +26,17 @@ class Layer:
 class LayerBuilder:
     def __init__(self):
         self.tables = {}
-        self.schemas = set()
+        self.schemas = []
         self.models = []
         self.views = []
 
     def with_table(self, table: Type[ModelBase]):
         full_name = full_table_name(table)
         self.tables[full_name] = table
-        self.with_schema(table.__table_args__["schema"])
         return self
 
     def with_schema(self, schema: str):
-        self.schemas.add(schema)
+        self.schemas.append(schema)
         return self
 
     def with_view(self, view: Type[ViewBase]):
@@ -45,13 +44,12 @@ class LayerBuilder:
         return self
 
     def with_model(self, model: ModelBase):
-        self.with_table(type(model))
         self.models.append(model)
         return self
 
     def build(self):
         return Layer(
-            schemas=list(self.schemas),
+            schemas=self.schemas,
             tables=list(self.tables.values()),
             models=self.models,
             views=self.views,

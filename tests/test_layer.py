@@ -3,7 +3,7 @@ from shreqt.layer import LayerBuilder
 from tests.resources import SimpleModel, MultiKeyModel, SimpleView
 
 
-def test_layer_builder():
+def test_layer_builder_doesnt_infer_lower_level_ddl():
     builder = LayerBuilder()
     test_model = SimpleModel.sample()
     builder.with_model(test_model)
@@ -13,8 +13,8 @@ def test_layer_builder():
     layer = builder.build()
 
     assert layer.models == [test_model]
-    assert layer.tables == [SimpleModel, MultiKeyModel]
-    assert sorted(layer.schemas) == sorted(["schema_one", "schema_two", "third_schema"])
+    assert layer.tables == [MultiKeyModel]
+    assert layer.schemas == ["third_schema"]
 
 
 def test_layer_builder_returns_self_on_with():

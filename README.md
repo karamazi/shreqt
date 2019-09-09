@@ -87,8 +87,6 @@ make deploy
 
 ### TODO
 
-- Schema and Table should not be inferred from Model.
-- Schema should not be inferred from Table.
 - Automate deployment step with travis
 - ContextManger/Decorator functionality for temporary layer
 - Option to automatically clean layers up once dbonion is destroyed.
