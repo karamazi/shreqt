@@ -25,8 +25,3 @@ class ExasolConnection:
             yield connection
         finally:
             connection.close()
-
-    def ping(self):
-        with self.connect() as conn:
-            res = conn.execute("SELECT 1 FROM dual").fetchall()
-            assert res[0]["1"] == 1
