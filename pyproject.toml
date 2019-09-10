@@ -8,7 +8,7 @@ readme = "README.md"
 keywords = ["testing", "query", "exasol"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.6"
 sqlalchemy = "^1.3"
 sqlalchemy-exasol = "^2.0"
 pyexasol = "^0.6.4"
@@ -16,13 +16,13 @@ sqlparse = "^0.3.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
-black = "19.3b0"
+black = "^19.3b0"
 pytest-cov = "^2.7"
 flake8 = "^3.7"
 
 [tool.black]
 line-length = 99
-target_version = ['py37']
+target_version = ["py36", "py37"]
 
 [build-system]
 requires = ["poetry>=0.12"]
