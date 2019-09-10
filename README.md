@@ -40,10 +40,10 @@ To run tests and lint checks:
 make checks
 ```
 
-To run linter on all files:
+To format on all files:
 
 ```bash
-make lint
+make fmt
 ```
 
 # Usage
