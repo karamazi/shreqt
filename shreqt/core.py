@@ -4,6 +4,7 @@ from enum import Enum
 from sqlalchemy_exasol.pyodbc import EXADialect_pyodbc
 from shreqt.connection import ExasolConnection
 from typing import List
+from contextlib import contextmanager
 
 
 class DBOnion:
@@ -30,6 +31,14 @@ class DBOnion:
         elements = layer.to_list_pop()
         queries = [layer_factory(e, self._dialect).pop_query(e) for e in elements]
         self._run_queries(queries)
+
+    @contextmanager
+    def layer(self, layer: Layer):
+        self.push_layer(layer)
+        try:
+            yield self
+        finally:
+            self.pop_layer()
 
     def _run_queries(self, queries: List[str]):
         with self.connection.connect() as conn:

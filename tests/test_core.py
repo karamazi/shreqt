@@ -31,3 +31,15 @@ def test_onion_pops_a_layer(layer_factory_mock, db_onion_exa, layer_with_all):
     assert layer_factory_mock.return_value.pop_query.call_count == 4
     assert cursor_mock.execute.call_count == 4
     assert db_onion_exa._layers == []
+
+
+def test_onion_layer_applies_temporary_layer(db_onion_exa, layer_with_all):
+    db_onion_exa._run_queries = MagicMock()
+    assert len(db_onion_exa._layers) == 0
+
+    with db_onion_exa.layer(layer_with_all):
+        assert len(db_onion_exa._layers) == 1
+        assert db_onion_exa._run_queries.call_count == 1
+
+    assert len(db_onion_exa._layers) == 0
+    assert db_onion_exa._run_queries.call_count == 2
