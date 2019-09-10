@@ -1,0 +1,26 @@
+language: python
+
+python:
+  - "3.6"
+  - "3.7"
+
+cache: pip
+
+addons:
+  apt:
+    packages:
+      - python3-dev
+      - python-dev
+      - unixodbc
+      - unixodbc-dev
+
+before_install:
+  # numpy is installed but is not need and is carrying security issues
+  - pip uninstall -y numpy
+  - pip install poetry
+
+install:
+  - poetry install
+
+script:
+  - make check

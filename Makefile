@@ -1,12 +1,11 @@
-
-lint:
+fmt:
 	poetry run black .
 
-
 check:
+	poetry run pytest tests
 	poetry run black --check .
-	poetry run flake8 --max-line-length=99
-	poetry run pytest --cov=shreqt/ tests
+	poetry run flake8
+	poetry run safety check --full-report
 
 run-example:
 	poetry run pytest --cov=example example
