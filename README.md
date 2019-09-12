@@ -1,7 +1,7 @@
 # ShreQT
 
 [![Build Status](https://travis-ci.org/karamazi/shreqt.svg?branch=master)](https://travis-ci.org/karamazi/shreqt)
-[![Build Status](https://img.shields.io/pypi/v/shreqt.svg?style=flat)](https://pypi.org/project/shreqt/)
+[![PyPi Version](https://img.shields.io/pypi/v/shreqt.svg?style=flat)](https://pypi.org/project/shreqt/)
 
 
 ```
