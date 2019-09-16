@@ -22,11 +22,6 @@ class UsersGb(ViewBase):
         return t.select().where(t.c.country == "GB")
 
 
-@pytest.fixture
-def db_instance():
-    return db
-
-
 def pytest_sessionstart(session):
     global db
     db = DBOnion(DBOnion.DBType.EXASOL)

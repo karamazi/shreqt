@@ -5,11 +5,11 @@ from os import environ
 
 class ExasolConnection:
     @contextmanager
-    def connect(self, schema=None):
+    def connect(self, schema=None, autocommit=True):
         # revlibs.connections doesnt support schema = None.
         # Ideally we'd want to fix revlibs and use them instead of this.
 
-        params = dict(compression=True)
+        params = dict(compression=True, autocommit=autocommit)
         if schema:
             params["schema"] = schema
 

@@ -43,3 +43,19 @@ def test_onion_layer_applies_temporary_layer(db_onion_exa, layer_with_all):
 
     assert len(db_onion_exa._layers) == 0
     assert db_onion_exa._run_queries.call_count == 2
+
+
+def test_state_lock_calls_begin_and_rollback(db_onion_exa):
+    conn_mock = MagicMock()
+    cursor_mock = MagicMock()
+    conn_mock.return_value.__enter__.return_value = cursor_mock
+    db_onion_exa.connection.connect = conn_mock
+
+    @db_onion_exa.freeze
+    def some_test(conn):
+        assert not conn.called
+        return 1
+
+    result = some_test()
+    assert result == 1
+    assert cursor_mock.rollback.call_count == 1

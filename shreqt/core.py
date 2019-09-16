@@ -20,6 +20,15 @@ class DBOnion:
 
         # self.connection.ping() # Should not be in constructor
 
+    def freeze(self, test_fun):
+        def wrapper(*args, **kwargs):
+            with self.connection.connect(autocommit=False) as conn:
+                res = test_fun(conn, *args, **kwargs)
+                conn.rollback()
+                return res
+
+        return wrapper
+
     def push_layer(self, layer: Layer):
         self._layers.append(layer)
         elements = layer.to_list_push()
