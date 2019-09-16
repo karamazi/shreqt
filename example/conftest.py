@@ -1,6 +1,5 @@
 from shreqt import ModelBase, ViewBase, DBOnion, LayerBuilder
 from sqlalchemy import Column, String
-import pytest
 
 db: DBOnion = None
 
@@ -20,11 +19,6 @@ class UsersGb(ViewBase):
     def select():
         t = User.__table__
         return t.select().where(t.c.country == "GB")
-
-
-@pytest.fixture
-def db_instance():
-    return db
 
 
 def pytest_sessionstart(session):
