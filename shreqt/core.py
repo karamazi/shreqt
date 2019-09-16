@@ -50,6 +50,11 @@ class DBOnion:
             self.pop_layer()
 
     def _run_queries(self, queries: List[str]):
-        with self.connection.connect() as conn:
-            for query in queries:
-                conn.execute(query)
+        with self.connection.connect(autocommit=False) as conn:
+            try:
+                for query in queries:
+                    conn.execute(query)
+                conn.commit()
+            except Exception as e:
+                conn.rollback()
+                raise e

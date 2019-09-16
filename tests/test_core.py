@@ -1,4 +1,5 @@
 from unittest.mock import patch, MagicMock
+import pytest
 
 
 @patch("shreqt.core.layer_factory")
@@ -14,6 +15,7 @@ def test_onion_pushes_a_layer(layer_factory_mock, db_onion_exa, layer_with_all):
     assert layer_factory_mock.call_count == 4
     assert layer_factory_mock.return_value.push_query.call_count == 4
     assert cursor_mock.execute.call_count == 4
+    assert cursor_mock.commit.call_count == 1
     assert db_onion_exa._layers == [layer_with_all]
 
 
@@ -30,6 +32,7 @@ def test_onion_pops_a_layer(layer_factory_mock, db_onion_exa, layer_with_all):
     assert layer_factory_mock.call_count == 4
     assert layer_factory_mock.return_value.pop_query.call_count == 4
     assert cursor_mock.execute.call_count == 4
+    assert cursor_mock.commit.call_count == 1
     assert db_onion_exa._layers == []
 
 
@@ -58,4 +61,16 @@ def test_state_lock_calls_begin_and_rollback(db_onion_exa):
 
     result = some_test()
     assert result == 1
+    assert cursor_mock.rollback.call_count == 1
+
+
+def test_run_queries_rollbacks_on_error(db_onion_exa):
+    conn_mock = MagicMock()
+    cursor_mock = MagicMock()
+    cursor_mock.execute.side_effect = Exception("TestFail")
+    conn_mock.return_value.__enter__.return_value = cursor_mock
+    db_onion_exa.connection.connect = conn_mock
+
+    with pytest.raises(Exception, match="TestFail"):
+        db_onion_exa._run_queries(["Fake Query"])
     assert cursor_mock.rollback.call_count == 1
