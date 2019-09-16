@@ -1,6 +1,5 @@
 from shreqt import ModelBase, ViewBase, DBOnion, LayerBuilder
 from sqlalchemy import Column, String
-import pytest
 
 db: DBOnion = None
 

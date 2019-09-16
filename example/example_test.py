@@ -22,18 +22,26 @@ def test_get_gb_emails_can_handle_more_than_one_user():
 
 
 def test_db_rollbacks_any_inserted_data_during_frozen_test():
+    """
+    This is a meta-test which demonstrates how db.freeze works on actual tests.
+    """
+
+    # Helper function
     def count_users(conn):
         return conn.execute("SELECT COUNT(*) as cnt FROM raw.users").fetchall()[0]["CNT"]
 
+    # An actual test which inserts data to DB.
     @db.freeze
     def sub_test(conn):
-        conn.execute("INSERT INTO raw.users VALUES ('a@a.a', 'GB')")
+        conn.execute("INSERT INTO raw.users VALUES ('rollback@test.aa', 'GB')")
         assert count_users(conn) == 3
 
+    # Initial state
     with db.connection.connect() as conn:
         assert count_users(conn) == 2
 
     sub_test()
 
+    # Post test. Any inserted data during test is removed.
     with db.connection.connect() as conn:
         assert count_users(conn) == 2
