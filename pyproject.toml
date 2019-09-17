@@ -20,6 +20,7 @@ black = "^19.3b0"
 pytest-cov = "^2.7"
 flake8 = "^3.7"
 safety = "^1.8"
+codecov = "^2.0"
 
 [tool.black]
 line-length = 99

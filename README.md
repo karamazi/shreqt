@@ -1,5 +1,6 @@
 # ShreQT
 
+[![codecov](https://codecov.io/gh/karamazi/shreqt/branch/master/graph/badge.svg)](https://codecov.io/gh/karamazi/shreqt)
 [![Build Status](https://travis-ci.org/karamazi/shreqt.svg?branch=master)](https://travis-ci.org/karamazi/shreqt)
 [![PyPi Version](https://img.shields.io/pypi/v/shreqt.svg?style=flat)](https://pypi.org/project/shreqt/)
 

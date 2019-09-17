@@ -24,3 +24,6 @@ install:
 
 script:
   - make check
+
+after_success:
+  - poetry run codecov
