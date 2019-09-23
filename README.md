@@ -108,5 +108,3 @@ make deploy
 
 - Automate deployment step with travis
 - Decorator functionality for temporary layer
-- Option to automatically clean layers up once dbonion is destroyed.
-- When exception is raised during layer insertion, whole layer should be rolled back before failure.
