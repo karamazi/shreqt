@@ -35,16 +35,36 @@ class LayerBuilder:
         self.tables[full_name] = table
         return self
 
+    def with_tables(self, *tables: Type[ModelBase]):
+        for table in tables:
+            self.with_table(table)
+        return self
+
     def with_schema(self, schema: str):
         self.schemas.append(schema)
+        return self
+
+    def with_schemas(self, *schemas: str):
+        for schema in schemas:
+            self.with_schema(schema)
         return self
 
     def with_view(self, view: Type[ViewBase]):
         self.views.append(view)
         return self
 
+    def with_views(self, *views: Type[ViewBase]):
+        for view in views:
+            self.with_view(view)
+        return self
+
     def with_model(self, model: ModelBase):
         self.models.append(model)
+        return self
+
+    def with_models(self, *models: ModelBase):
+        for model in models:
+            self.with_model(model)
         return self
 
     def build(self):
