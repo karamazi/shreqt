@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "shreqt"
-version = "0.5.1"
+version = "0.6.0"
 description = "Query Testing framework"
 authors = ["Zibi Rzepka <zibi.rzepka@revolut.com>"]
 

@@ -33,3 +33,32 @@ def test_layer_push_pop_order(layer_with_all):
 
     expected_pop = [model, SimpleView, SimpleModel, "aa"]
     assert layer_with_all.to_list_pop() == expected_pop
+
+
+def test_layer_with_schemas():
+    builder = LayerBuilder()
+    builder.with_schemas("a", "b")
+    layer = builder.build()
+    assert layer.schemas == ["a", "b"]
+
+
+def test_layer_with_tables():
+    builder = LayerBuilder()
+    builder.with_tables(SimpleModel, MultiKeyModel)
+    layer = builder.build()
+    assert layer.tables == [SimpleModel, MultiKeyModel]
+
+
+def test_layer_with_views():
+    builder = LayerBuilder()
+    builder.with_views(SimpleView, SimpleView)
+    layer = builder.build()
+    assert layer.views == [SimpleView, SimpleView]
+
+
+def test_layer_with_models():
+    builder = LayerBuilder()
+    models = [SimpleModel.sample(), MultiKeyModel.sample()]
+    builder.with_models(*models)
+    layer = builder.build()
+    assert layer.models == models
