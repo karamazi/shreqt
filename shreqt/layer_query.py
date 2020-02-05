@@ -3,6 +3,7 @@ from sqlalchemy.schema import CreateTable, DropTable
 from shreqt.sqlalchemy_ext import CreateView, DropView
 from shreqt.model import ModelBase, ViewBase, full_table_name, fields_dict, table_pk_fields
 from typing import Type, Any, Union
+from datetime import date, datetime
 import abc
 import sqlparse
 
@@ -80,8 +81,14 @@ class LayerQueryModel(LayerQuery):
 
     @staticmethod
     def quote(value: Any) -> str:
+        if value is None:
+            return "NULL"
         if isinstance(value, str):
             return f"'{value}'"
+        if isinstance(value, datetime):
+            return value.strftime("'%Y-%m-%d %H:%M:%S'")
+        if isinstance(value, date):
+            return f"'{value.isoformat()}'"
         return str(value)
 
 

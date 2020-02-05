@@ -7,6 +7,7 @@ from shreqt.layer_query import (
 )
 from tests.resources import SimpleModel, MultiKeyModel, SimpleView
 from sqlalchemy_exasol.base import EXADialect
+from datetime import date, datetime
 from textwrap import dedent
 import pytest
 
@@ -88,7 +89,16 @@ def test_model(model, expected_push, expected_pop):
     assert actual == expected_pop
 
 
-@pytest.mark.parametrize("value, expected", [[1, "1"], ["1", "'1'"]])
+@pytest.mark.parametrize(
+    "value, expected",
+    [
+        [1, "1"],
+        ["1", "'1'"],
+        [None, "NULL"],
+        [date(2020, 1, 11), "'2020-01-11'"],
+        [datetime(2019, 1, 2, 3, 4, 5), "'2019-01-02 03:04:05'"],
+    ],
+)
 def test_model_quote(value, expected):
     assert LayerQueryModel.quote(value) == expected
 
