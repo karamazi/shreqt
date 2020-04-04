@@ -1,8 +1,5 @@
 name: Build & Publish new version to pypi
 on: push
-#on:
-#  release:
-#    types: [published]
 jobs:
   build-n-publish:
     name: Build and publish ShreQT release to Pypi
